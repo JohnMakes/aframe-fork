@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hello, World! - A-Frame</title>
+	<meta name="description" content="Hello, World! - A-Frame">
+	<script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+</head>
+<body>
+	<script>
+	  AFRAME.registerComponent('spin-on-mouseenter', {
+		schema: {
+		  to: {default: '2.5 2.5 2.5'}
+		},
+		init: function () {
+		  var data = this.data;
+		  this.el.addEventListener('mouseenter', function () {
+			this.setAttribute('scale', data.to);
+		  });
+		}
+	  });
+	</script>
+	<a-scene>
+		<a-assets>
+			<a-asset-item id="pin-obj" src="/assets/models/geo-thing.obj"></a-asset-item>
+			<a-asset-item id="pin-mtl" src="/assets/models/geo-thing.mtl"></a-asset-item>
+			<img id="skyTexture"
+			src="/assets/img/fountain.JPG">
+		</a-assets>
+		
+		<a-entity obj-model="obj:#pin-obj;mtl:#pin-mtl" position="371.595 257.531 185.424" rotation="0 90 0" scale="1 1 1">
+			<a-animation attribute="position" to="371.595 280 185.424" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+			<a-animation attribute="rotation" begin="mouseenter" dur="2000" to="0 450 0"></a-animation>
+		</a-entity>
+		
+		<a-sky src="#skyTexture"></a-sky>
+		<a-camera>
+			<a-cursor></a-cursor>
+		</a-camera>
+	</a-scene>
+</body>
+</html>
